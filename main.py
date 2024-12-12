@@ -1,6 +1,6 @@
 from selenium import webdriver
 
 
-driver = webdriver.Chrome()
+driver = webdriver.Firefox() # Supported browsers include Chrome, Firefox, and Safari
 
-driver.get("https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUXbmV2ZXIgZ29ubmEgZ2l2ZSB5b3UgdXA%3D")
+# driver.get("url") get the URL (protocol needs to be specified)
