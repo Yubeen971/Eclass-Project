@@ -1,0 +1,5 @@
+Section #,Q #,Q Type,Q Title,Q Text,Bonus?,Difficulty,Answer,Answer Match,# Responses,Average Score,Out Of ,Standard Deviation ,Discrimination Index ,Point Biserial
+,1,MC,',Question #1 Stem,False,1,This is the answer!,Checked,1,0.5,1,50.00 %,100.00 %,1.00
+,1,MC,',Question #1 Stem,False,1,"This is NOT the answer, don't pick me!",UnChecked,1,0.5,1,50.00 %,100.00 %,1.00
+,2,MC,',Question #2 Stem,False,1,This is the answer!,Checked,1,0.5,1,50.00 %,100.00 %,1.00
+,2,MC,',Question #2 Stem,False,1,"This is NOT the answer, don't pick me!",UnChecked,1,0.5,1,50.00 %,100.00 %,1.00
