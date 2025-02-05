@@ -3,35 +3,26 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import pandas as pd
+import numpy as np
 import time
 import random
 
-def GenerateRandomDelay():
-    val = random.randrange(1, 5)
-    delay = val / 10
-    return delay
+quiz = pd.read_csv("Consulting Test - Question Details.csv") # path of the csv file
+quiz.drop(["Section #", "Q Title", "Bonus?", "Difficulty", "Average Score", "# Responses", "Out Of ", "Standard Deviation ", "Discrimination Index ", "Point Biserial"], axis = 1, inplace = True)
 
-driver = webdriver.Firefox() # Supported browsers include Chrome, Firefox, and Safari
+answerChoices = []
+qNumbers = []
 
-driver.get("https://instruction.gwinnett.k12.ga.us/d2l/lms/quizzing/user/quiz_submissions_attempt.d2l?isprv=&qi=4030818&ai=44497764&isInPopup=0&cfql=0&fromQB=0&fromSubmissionsList=1&ou=4971124") # get the URL (protocol needs to be specified)
+for x in range(0, quiz.shape[0], 1):
+    question = quiz["Q #"].loc[quiz.index[x]]
+    qNumbers.append(question)
+print(qNumbers)
 
-print("Once you get to the sign in page, enter your information as normal. Don't worry. This information will not be saved")
-time.sleep(60)
+numberOfQuestions = list(set(qNumbers))
 
-input_element = driver.find_element(By.ID, "ctl_10")
-
-WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "ctl_10")))
-
-input_element.send_keys(Keys.CONTROL + "C")
-
-time.sleep(GenerateRandomDelay())
-
-link = driver.find_element(By.ID, "ctl_14")
-
-WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "ctl_14")))
-
-link.send_keys(Keys.CONTROL + "C")
-
-time.sleep(60)
-
-driver.quit() # close program
+for y in range(0, len(numberOfQuestions), 1):
+    numAnswers = qNumbers.count(1)
+    for z in range(0, numAnswers - 1, 1):
+        answerChoices.append(quiz["Answer"].loc[quiz.index[z]])
+print(answerChoices)
