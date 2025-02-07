@@ -17,12 +17,17 @@ qNumbers = []
 for x in range(0, quiz.shape[0], 1):
     question = quiz["Q #"].loc[quiz.index[x]]
     qNumbers.append(question)
-print(qNumbers)
 
 numberOfQuestions = list(set(qNumbers))
 
+questionsList = []
+
 for y in range(0, len(numberOfQuestions), 1):
+    listAstley = []
+
     numAnswers = qNumbers.count(1)
-    for z in range(0, numAnswers - 1, 1):
-        answerChoices.append(quiz["Answer"].loc[quiz.index[z]])
-print(answerChoices)
+    for z in range(0, numAnswers, 1):
+        answerChoices.append(quiz["Answer"].iloc[quiz.index[z]])
+        listAstley.append(answerChoices)
+    questionsList.append(listAstley)
+    print(listAstley)
