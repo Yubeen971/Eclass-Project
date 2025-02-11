@@ -18,7 +18,7 @@ questions = []
 
 for x in range(0, quiz.shape[0], 1):
     question = quiz["Q #"].loc[quiz.index[x]]
-    qStem = quiz["Q Text"].loc[quiz.index[x]]
+    qStem = quiz["Q Text"].drop_duplicates().loc[quiz.index[x]]
     qNumbers.append(question)
     questions.append(qStem)
 
@@ -36,4 +36,4 @@ for y in range(0, len(numberOfQuestions), 1):
 
 print(answersPerQuestion)
 print(answerChoices)
-print(uniqueQuestions)
+print(questions)
