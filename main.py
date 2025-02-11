@@ -13,21 +13,27 @@ quiz.drop(["Section #", "Q Title", "Bonus?", "Difficulty", "Average Score", "# R
 
 answerChoices = []
 qNumbers = []
+answersPerQuestion = []
+questions = []
 
 for x in range(0, quiz.shape[0], 1):
     question = quiz["Q #"].loc[quiz.index[x]]
+    qStem = quiz["Q Text"].loc[quiz.index[x]]
     qNumbers.append(question)
+    questions.append(qStem)
 
 numberOfQuestions = list(set(qNumbers))
-
-questionsList = []
+uniqueQuestions = list(set(questions))
 
 for y in range(0, len(numberOfQuestions), 1):
     listAstley = []
 
-    numAnswers = qNumbers.count(1)
+    numAnswers = qNumbers.count(numberOfQuestions[y])
+    answersPerQuestion.append(numAnswers)
+
     for z in range(0, numAnswers, 1):
         answerChoices.append(quiz["Answer"].iloc[quiz.index[z]])
-        listAstley.append(answerChoices)
-    questionsList.append(listAstley)
-    print(listAstley)
+
+print(answersPerQuestion)
+print(answerChoices)
+print(uniqueQuestions)
