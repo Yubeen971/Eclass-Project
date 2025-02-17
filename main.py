@@ -23,7 +23,7 @@ for x in range(0, quiz.shape[0], 1):
     questions.append(qStem)
 
 numberOfQuestions = list(set(qNumbers))
-uniqueQuestions = list(set(questions))
+uniqueQuestions = list(dict.fromkeys(questions))
 
 for y in range(0, len(numberOfQuestions), 1):
     listAstley = []
@@ -36,4 +36,19 @@ for y in range(0, len(numberOfQuestions), 1):
 
 print(answersPerQuestion)
 print(answerChoices)
-print(questions)
+print(uniqueQuestions)
+
+driver = webdriver.Chrome()
+
+driver.get("https://docs.google.com/forms/d/1mt_9xWpf2lZVRazEev1gupTKZ41_K5_HFptBZEDplkQ/edit")
+timeLimit = 60
+x = 0
+for y in range(timeLimit, x, -1):
+    print("Wait for " + str(y) + " seconds")
+    time.sleep(1)
+    y -= 1
+    if (y == 1):
+        print("Wait for " + str(y) + " second")
+element = driver.find_element(By.CLASS_NAME, "Hvn9fb.zHQkBf")
+element.click()
+element.send_keys("I found this element!")
