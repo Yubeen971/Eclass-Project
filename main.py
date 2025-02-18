@@ -40,9 +40,10 @@ print(uniqueQuestions)
 
 driver = webdriver.Chrome()
 
-driver.get("https://docs.google.com/forms/u/0/")
-timeLimit = 60
+driver.get("https://docs.google.com/forms/u/0/") # goes into the form homepage to create new forms
+timeLimit = 60 #the program will run for 60 seconds until it stops and exits
 x = 0
+#The following for loop prints a countdown timer to the console.
 for y in range(timeLimit, x, -1):
     if (y != 1):
         print("Wait for " + str(y) + " seconds")
@@ -54,7 +55,7 @@ for y in range(timeLimit, x, -1):
 # element.click()
 # element.send_keys("I found this element!")
 
-
+#xpath for "create forms" button
 link = driver.find_element(By.XPATH, "/html/body/div[4]/div[2]/div[2]/div/div[2]/div/div/div[2]/div/div/div[1]/div/div[2]/div[1]/div[1]/img") 
 link.click()
 # time.sleep(10)
