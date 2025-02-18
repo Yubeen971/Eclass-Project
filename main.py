@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 import pandas as pd
 import numpy as np
 import time
@@ -38,24 +39,27 @@ print(answersPerQuestion)
 print(answerChoices)
 print(uniqueQuestions)
 
+# Selenium Code Starts Here
+
 driver = webdriver.Chrome()
 
+actions = ActionChains(driver)
 driver.get("https://docs.google.com/forms/u/0/") # goes into the form homepage to create new forms
-timeLimit = 60 #the program will run for 60 seconds until it stops and exits
-x = 0
-#The following for loop prints a countdown timer to the console.
-for y in range(timeLimit, x, -1):
-    if (y != 1):
-        print("Wait for " + str(y) + " seconds")
-        time.sleep(1)
-        y -= 1
-    if (y == 1):
-        print("Wait for " + str(y) + " second")
-# element = driver.find_element(By.CLASS_NAME, "Hvn9fb.zHQkBf")
-# element.click()
-# element.send_keys("I found this element!")
+time.sleep(40)
 
 #xpath for "create forms" button
 link = driver.find_element(By.XPATH, "/html/body/div[4]/div[2]/div[2]/div/div[2]/div/div/div[2]/div/div/div[1]/div/div[2]/div[1]/div[1]/img") 
 link.click()
-# time.sleep(10)
+time.sleep(5)
+element = driver.find_element(By.CLASS_NAME, "Hvn9fb.zHQkBf")
+element.click()
+element.send_keys("Test Form")
+time.sleep(0.2)
+
+for lp in range(0, len(uniqueQuestions), 1):
+    actions.send_keys(Keys.CONTROL + Keys.SHIFT + Keys.ENTER)
+    actions.perform()
+    time.sleep(0.3)
+    actions.send_keys(uniqueQuestions[lp])
+    actions.perform()
+    time.sleep(0.3)
