@@ -40,15 +40,21 @@ print(uniqueQuestions)
 
 driver = webdriver.Chrome()
 
-driver.get("https://docs.google.com/forms/d/1mt_9xWpf2lZVRazEev1gupTKZ41_K5_HFptBZEDplkQ/edit")
+driver.get("https://docs.google.com/forms/u/0/")
 timeLimit = 60
 x = 0
 for y in range(timeLimit, x, -1):
-    print("Wait for " + str(y) + " seconds")
-    time.sleep(1)
-    y -= 1
+    if (y != 1):
+        print("Wait for " + str(y) + " seconds")
+        time.sleep(1)
+        y -= 1
     if (y == 1):
         print("Wait for " + str(y) + " second")
-element = driver.find_element(By.CLASS_NAME, "Hvn9fb.zHQkBf")
-element.click()
-element.send_keys("I found this element!")
+# element = driver.find_element(By.CLASS_NAME, "Hvn9fb.zHQkBf")
+# element.click()
+# element.send_keys("I found this element!")
+
+
+link = driver.find_element(By.XPATH, "/html/body/div[4]/div[2]/div[2]/div/div[2]/div/div/div[2]/div/div/div[1]/div/div[2]/div[1]/div[1]/img") 
+link.click()
+# time.sleep(10)
