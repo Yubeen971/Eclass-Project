@@ -35,8 +35,6 @@ for y in range(0, len(numberOfQuestions), 1):
     for z in range(0, numAnswers, 1):
         answerChoices.append(quiz["Answer"].iloc[quiz.index[z]])
 
-print(answersPerQuestion)
-print(answerChoices)
 print(uniqueQuestions)
 
 # Selenium Code Starts Here
@@ -56,10 +54,39 @@ element.click()
 element.send_keys("Test Form")
 time.sleep(0.2)
 
+for lp2 in range(0, 22, 1): # Tab to Question 1 Field
+    actions.send_keys(Keys.TAB)
+    time.sleep(0.3)
+
 for lp in range(0, len(uniqueQuestions), 1):
-    actions.send_keys(Keys.CONTROL + Keys.SHIFT + Keys.ENTER)
+    actions.key_down(Keys.LEFT_CONTROL)
     actions.perform()
-    time.sleep(0.3)
-    actions.send_keys(uniqueQuestions[lp])
+    actions.send_keys("A")
     actions.perform()
-    time.sleep(0.3)
+    actions.key_up(Keys.LEFT_CONTROL)
+    actions.send_keys(uniqueQuestions[lp]) # Enter Questions in Question Field
+    actions.perform()
+    time.sleep(0.2)
+    for tab in range(0, 4, 1):
+        actions.send_keys(Keys.TAB) # Tab to Answer Choice 1
+        time.sleep(0.1)
+    for answer in range(0, answersPerQuestion[lp], 1):
+        actions.send_keys(answerChoices[answer]) # Enter Answer Choice
+        actions.perform()
+        time.sleep(0.1)
+        answerChoices.remove(answerChoices[lp])
+        actions.send_keys(Keys.ENTER) # Add Another Answer Choice
+        actions.perform()
+        time.sleep(0.2)
+    actions.key_down(Keys.LEFT_CONTROL)
+    actions.perform()
+    actions.key_down(Keys.LEFT_SHIFT)
+    actions.perform()
+    actions.send_keys(Keys.ENTER)
+    actions.perform()
+    time.sleep(0.05)
+    actions.key_up(Keys.LEFT_CONTROL)
+    actions.perform()
+    actions.key_up(Keys.LEFT_SHIFT)
+    actions.perform()
+time.sleep(5)
