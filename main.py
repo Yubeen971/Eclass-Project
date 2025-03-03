@@ -38,7 +38,18 @@ for y in range(0, len(numberOfQuestions), 1):
 print(uniqueQuestions)
 
 # Selenium Code Starts Here
-
+def MakeNewQuestion():
+    actions.key_down(Keys.LEFT_CONTROL)
+    actions.perform()
+    actions.key_down(Keys.LEFT_SHIFT)
+    actions.perform()
+    actions.send_keys(Keys.ENTER)
+    actions.perform()
+    time.sleep(0.05)
+    actions.key_up(Keys.LEFT_CONTROL)
+    actions.perform()
+    actions.key_up(Keys.LEFT_SHIFT)
+    actions.perform()
 driver = webdriver.Chrome()
 
 actions = ActionChains(driver)
@@ -67,9 +78,11 @@ for lp in range(0, len(uniqueQuestions), 1):
     actions.send_keys(uniqueQuestions[lp]) # Enter Questions in Question Field
     actions.perform()
     time.sleep(0.2)
+
     for tab in range(0, 4, 1):
         actions.send_keys(Keys.TAB) # Tab to Answer Choice 1
         time.sleep(0.1)
+
     for answer in range(0, answersPerQuestion[lp], 1):
         actions.send_keys(answerChoices[answer]) # Enter Answer Choice
         actions.perform()
@@ -78,15 +91,5 @@ for lp in range(0, len(uniqueQuestions), 1):
         actions.send_keys(Keys.ENTER) # Add Another Answer Choice
         actions.perform()
         time.sleep(0.2)
-    actions.key_down(Keys.LEFT_CONTROL)
-    actions.perform()
-    actions.key_down(Keys.LEFT_SHIFT)
-    actions.perform()
-    actions.send_keys(Keys.ENTER)
-    actions.perform()
-    time.sleep(0.05)
-    actions.key_up(Keys.LEFT_CONTROL)
-    actions.perform()
-    actions.key_up(Keys.LEFT_SHIFT)
-    actions.perform()
+    MakeNewQuestion()
 time.sleep(5)
