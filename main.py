@@ -39,11 +39,6 @@ for y in range(0, len(numberOfQuestions), 1):
     l += z + 1
     u += z + 1
 
-print(uniqueQuestions) # Question Title
-print(answersPerQuestion) # Number of Answers per Question
-print(answerChoices) # Total Answer Choices Across All Questions
-
-# Selenium Code Starts Here
 def MakeNewQuestion():
     actions.key_down(Keys.LEFT_CONTROL)
     actions.perform()
@@ -99,8 +94,6 @@ for lp in range(0, len(answersPerQuestion), 1):
         actions.send_keys(Keys.ENTER) # Add Another Answer Choice
         actions.perform()
         time.sleep(0.2)
-        print(lower)
-        print(upper)
     lower += a + 1
     upper += a + 1
     MakeNewQuestion()
