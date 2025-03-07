@@ -9,7 +9,7 @@ import numpy as np
 import time
 import random
 
-quiz = pd.read_csv("Consulting Test - Question Details.csv") # path of the csv file
+quiz = pd.read_csv("Micro Unit 1.3 CW The Economizing Problem of the PPF (MS) - Question Details.csv") # path of the csv file
 quiz.drop(["Section #", "Q Title", "Bonus?", "Difficulty", "Average Score", "# Responses", "Out Of ", "Standard Deviation ", "Discrimination Index ", "Point Biserial"], axis = 1, inplace = True)
 
 answerChoices = []
@@ -26,18 +26,19 @@ for x in range(0, quiz.shape[0], 1):
 numberOfQuestions = list(set(qNumbers))
 uniqueQuestions = list(dict.fromkeys(questions))
 
+l = 0
+u = 0
 for y in range(0, len(numberOfQuestions), 1):
     listAstley = []
 
     numAnswers = qNumbers.count(numberOfQuestions[y])
     answersPerQuestion.append(numAnswers)
 
-    for z in range(0, numAnswers, 1):
+    for z in range(l, numAnswers + u, 1):
         answerChoices.append(quiz["Answer"].iloc[quiz.index[z]])
+    l += z + 1
+    u += z + 1
 
-print(uniqueQuestions)
-
-# Selenium Code Starts Here
 def MakeNewQuestion():
     actions.key_down(Keys.LEFT_CONTROL)
     actions.perform()
@@ -54,7 +55,7 @@ driver = webdriver.Chrome()
 
 actions = ActionChains(driver)
 driver.get("https://docs.google.com/forms/u/0/") # goes into the form homepage to create new forms
-time.sleep(40)
+time.sleep(30)
 
 #xpath for "create forms" button
 link = driver.find_element(By.XPATH, "/html/body/div[4]/div[2]/div[2]/div/div[2]/div/div/div[2]/div/div/div[1]/div/div[2]/div[1]/div[1]/img") 
@@ -62,14 +63,17 @@ link.click()
 time.sleep(5)
 element = driver.find_element(By.CLASS_NAME, "Hvn9fb.zHQkBf")
 element.click()
-element.send_keys("Test Form")
+element.send_keys("Multi Select Form")
 time.sleep(0.2)
 
 for lp2 in range(0, 22, 1): # Tab to Question 1 Field
     actions.send_keys(Keys.TAB)
     time.sleep(0.3)
 
-for lp in range(0, len(uniqueQuestions), 1):
+lower = 0
+upper = answersPerQuestion[0]
+
+for lp in range(0, len(answersPerQuestion), 1):
     actions.key_down(Keys.LEFT_CONTROL)
     actions.perform()
     actions.send_keys("A")
@@ -83,13 +87,13 @@ for lp in range(0, len(uniqueQuestions), 1):
         actions.send_keys(Keys.TAB) # Tab to Answer Choice 1
         time.sleep(0.1)
 
-    for answer in range(0, answersPerQuestion[lp], 1):
-        actions.send_keys(answerChoices[answer]) # Enter Answer Choice
+    for a in range(lower, upper, 1):
+        actions.send_keys(answerChoices[a]) # Enter Answer Choice
         actions.perform()
         time.sleep(0.1)
-        answerChoices.remove(answerChoices[lp])
         actions.send_keys(Keys.ENTER) # Add Another Answer Choice
         actions.perform()
         time.sleep(0.2)
+    lower += a + 1
+    upper += a + 1
     MakeNewQuestion()
-time.sleep(5)
