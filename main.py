@@ -9,7 +9,7 @@ import numpy as np
 import time
 import random
 
-quiz = pd.read_csv("Consulting Test - Question Details.csv") # path of the csv file
+quiz = pd.read_csv("Micro Unit 1.3 CW The Economizing Problem of the PPF (MS) - Question Details.csv") # path of the csv file
 quiz.drop(["Section #", "Q Title", "Bonus?", "Difficulty", "Average Score", "# Responses", "Out Of ", "Standard Deviation ", "Discrimination Index ", "Point Biserial"], axis = 1, inplace = True)
 
 answerChoices = []
@@ -68,7 +68,7 @@ link.click()
 time.sleep(5)
 element = driver.find_element(By.CLASS_NAME, "Hvn9fb.zHQkBf")
 element.click()
-element.send_keys("Test Form")
+element.send_keys("Multi Select Form")
 time.sleep(0.2)
 
 for lp2 in range(0, 22, 1): # Tab to Question 1 Field
