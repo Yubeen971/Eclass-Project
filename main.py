@@ -1,9 +1,11 @@
+from chromedriver_selection import chromeselect
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.chrome.service import Service
 import pandas as pd
 import numpy as np
 import time
@@ -11,6 +13,9 @@ import random
 
 quiz = pd.read_csv("Micro Unit 1.3 CW The Economizing Problem of the PPF (MS) - Question Details.csv") # path of the csv file
 quiz.drop(["Section #", "Q Title", "Bonus?", "Difficulty", "Average Score", "# Responses", "Out Of ", "Standard Deviation ", "Discrimination Index ", "Point Biserial"], axis = 1, inplace = True)
+
+directory_name = chromeselect()
+service = Service(executable_path=directory_name)
 
 answerChoices = []
 qNumbers = []
@@ -51,7 +56,7 @@ def MakeNewQuestion():
     actions.perform()
     actions.key_up(Keys.LEFT_SHIFT)
     actions.perform()
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(service=service)
 
 actions = ActionChains(driver)
 driver.get("https://docs.google.com/forms/u/0/") # goes into the form homepage to create new forms
