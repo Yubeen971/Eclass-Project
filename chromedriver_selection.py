@@ -18,9 +18,6 @@ def chromeselect() -> str:
                        case "Linux":
                            subprocess.Popen(["./chromedriver-linux64/chromedriver"])
                            return "./chromedriver-linux64/chromedriver"
-                       case "Windows":
-                           subprocess.Popen([r".\chromedriver-win64\chromedriver.exe"])
-                           return r".\chromedriver-win64\chromedriver.exe"
                        case "Darwin":
                            subprocess.Popen(["./chromedriver-mac-x64/chromedriver"])
                            return "./chromedriver-mac-x64/chromedriver"
@@ -30,6 +27,9 @@ def chromeselect() -> str:
                        case _:
                            print("WE. DON'T. SUPPORT. YOU.")
                            sys.exit()
+               case "AMD64":
+                    subprocess.Popen([r".\chromedriver-win64\chromedriver.exe"])
+                    return r".\chromedriver-win64\chromedriver.exe"
                case _:
                    print("What even are you?")
                    sys.exit()
