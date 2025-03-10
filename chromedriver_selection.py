@@ -6,7 +6,7 @@ import subprocess
 def chromeselect() -> str:
     match platform.architecture()[0]:
         case "32bit":
-           print("Bruh who even supports 32bit? Its 2025 for flips sake!")
+           print("This operating system is not supported")
            sys.exit()
         case "64bit":
            match platform.machine():
@@ -22,17 +22,17 @@ def chromeselect() -> str:
                            subprocess.Popen(["./chromedriver-mac-x64/chromedriver"])
                            return "./chromedriver-mac-x64/chromedriver"
                        case "FreeBSD":
-                           print("Ah jeez.\n I really wanted to support you. But we just couldn't. Sorry mate.")
+                           print("This operating system is not supported")
                            sys.exit()
                        case _:
-                           print("WE. DON'T. SUPPORT. YOU.")
+                           print("This operating system is not supported")
                            sys.exit()
                case "AMD64":
                     subprocess.Popen([r".\chromedriver-win64\chromedriver.exe"])
                     return r".\chromedriver-win64\chromedriver.exe"
                case _:
-                   print("What even are you?")
+                   print("This operating system is not supported")
                    sys.exit()
         case _:
-           print("What are you even using? We didn't even program this in!")
+           print("This operating system is not supported")
            sys.exit()
