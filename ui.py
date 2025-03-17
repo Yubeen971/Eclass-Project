@@ -25,11 +25,14 @@ class FirstWidget(QtWidgets.QWidget):
     def onClicked(self):
         self.text.setText(self.hello)
         wasClicked = True
+        print(wasClicked)
         return wasClicked
     
     def onMoveClick(self):
-        if (wasClicked):
+        if (wasClicked == True):
             self.text.setText(self.success)
+        else:
+            self.text.setText(self.bye)
 
 
 if (__name__ == "__main__"):
