@@ -9,11 +9,12 @@ from selenium.webdriver.chrome.service import Service
 import pandas as pd
 import time
 import random
+import os
 
 quiz = pd.read_csv("Micro Unit 1.3 CW The Economizing Problem of the PPF (MS) - Question Details.csv") # path of the csv file
 quiz.drop(["Section #", "Q Title", "Bonus?", "Difficulty", "Average Score", "# Responses", "Out Of ", "Standard Deviation ", "Discrimination Index ", "Point Biserial"], axis = 1, inplace = True)
 
-directory_name = chromeselect()
+directory_name = chromeselect()[0]
 service = Service(executable_path=directory_name)
 
 answerChoices = []
@@ -43,15 +44,27 @@ for y in range(0, len(numberOfQuestions), 1):
     l += z + 1
     u += z + 1
 
+def CheckForMacDown():
+    if (chromeselect()[1] == True):
+        actions.key_down(Keys.COMMAND)
+    else:
+        actions.key_down(Keys.LEFT_CONTROL)
+
+def CheckForMacUp():
+    if (chromeselect()[1] == True):
+        actions.key_up(Keys.COMMAND)
+    else:
+        actions.key_up(Keys.LEFT_CONTROL)
+
 def MakeNewQuestion():
-    actions.key_down(Keys.LEFT_CONTROL)
+    CheckForMacDown()
     actions.perform()
     actions.key_down(Keys.LEFT_SHIFT)
     actions.perform()
     actions.send_keys(Keys.ENTER)
     actions.perform()
     time.sleep(0.05)
-    actions.key_up(Keys.LEFT_CONTROL)
+    CheckForMacUp()
     actions.perform()
     actions.key_up(Keys.LEFT_SHIFT)
     actions.perform()
@@ -78,11 +91,11 @@ lower = 0
 upper = answersPerQuestion[0]
 
 for lp in range(0, len(answersPerQuestion), 1):
-    actions.key_down(Keys.LEFT_CONTROL)
+    CheckForMacDown()
     actions.perform()
     actions.send_keys("A")
     actions.perform()
-    actions.key_up(Keys.LEFT_CONTROL)
+    CheckForMacUp()
     actions.send_keys(uniqueQuestions[lp]) # Enter Questions in Question Field
     actions.perform()
     time.sleep(0.2)
