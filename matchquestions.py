@@ -11,7 +11,7 @@ import time
 import random
 import os
 
-quiz = pd.read_csv("Micro Unit 1.4 CW Comparative Advantage and Trade (Vocab Matching) - Question Details") # path of the csv file
+quiz = pd.read_csv("Micro Unit 1.4 CW Comparative Advantage and Trade (Vocab Matching) - Question Details.csv") # path of the csv file
 quiz.drop(["Section #", "Q Title", "Bonus?", "Difficulty", "Average Score", "# Responses", "Out Of ", "Standard Deviation ", "Discrimination Index ", "Point Biserial"], axis = 1, inplace = True)
 
 directory_name = chromeselect()[0]
@@ -22,28 +22,31 @@ qNumbers = []
 answersPerQuestion = []
 questions = []
 
-for x in range(0, quiz.shape[0], 1):
-    question = quiz.loc[quiz.index[x], "Q #"]
-    qStem = quiz.loc[quiz.index[x], "Q Text"]
+uniqueQuestionName = quiz.drop_duplicates(subset=["Answer"], inplace = False)
+
+
+for x in range(0, uniqueQuestionName.shape[0], 1):
+    question = uniqueQuestionName.loc[uniqueQuestionName.index[x], "Q #"]
+    qStem = uniqueQuestionName.loc[uniqueQuestionName.index[x], "Answer"]
     qNumbers.append(question)
     questions.append(qStem)
 
 numberOfQuestions = list(set(qNumbers))
 uniqueQuestions = list(dict.fromkeys(questions))
 
-l = 0
-u = 0
-for y in range(0, len(numberOfQuestions), 1):
+print(uniqueQuestions)
+
+for y in range(0, len(uniqueQuestions), 1):
     listAstley = []
 
     numAnswers = qNumbers.count(numberOfQuestions[y])
     answersPerQuestion.append(numAnswers)
 
-    for z in range(l, numAnswers + u, 1):
-        answerChoices.append(quiz["Answer"].iloc[quiz.index[z]])
-    l += z + 1
-    u += z + 1
+    for z in range(0, numAnswers, 1):
+        answerChoices.append(quiz["Answer Match"].iloc[quiz.index[z]])
 
+print(answerChoices)
+'''
 def CheckForMacDown():
     if (chromeselect()[1] == True):
         actions.key_down(Keys.COMMAND)
@@ -115,6 +118,6 @@ for lp in range(0, len(answersPerQuestion), 1):
     upper += a + 1
     MakeNewQuestion()
 
-
+'''
 
 
