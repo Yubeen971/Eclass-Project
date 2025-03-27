@@ -14,8 +14,8 @@ import os
 quiz = pd.read_csv("Micro Unit 1.4 CW Comparative Advantage and Trade (Vocab Matching) - Question Details.csv") # path of the csv file
 quiz.drop(["Section #", "Q Title", "Bonus?", "Difficulty", "Average Score", "# Responses", "Out Of ", "Standard Deviation ", "Discrimination Index ", "Point Biserial"], axis = 1, inplace = True)
 
-directory_name = chromeselect()[0]
-service = Service(executable_path=directory_name)
+# directory_name = chromeselect()[0]
+# service = Service(executable_path=directory_name)
 
 answerChoices = []
 qNumbers = []
@@ -36,16 +36,14 @@ uniqueQuestions = list(dict.fromkeys(questions))
 
 print(uniqueQuestions)
 
-for y in range(0, len(uniqueQuestions), 1):
-    listAstley = []
+onlyTheFirst = (quiz["Answer"] == quiz.loc[quiz.index[0], "Answer"]).sum()
+for y in range(0, onlyTheFirst, 1):
 
-    numAnswers = qNumbers.count(numberOfQuestions[y])
-    answersPerQuestion.append(numAnswers)
+    answerChoices.append(quiz["Answer Match"].iloc[quiz.index[y]])
 
-    for z in range(0, numAnswers, 1):
-        answerChoices.append(quiz["Answer Match"].iloc[quiz.index[z]])
-
+print("_______")
 print(answerChoices)
+
 '''
 def CheckForMacDown():
     if (chromeselect()[1] == True):
