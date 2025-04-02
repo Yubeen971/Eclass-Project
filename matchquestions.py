@@ -14,8 +14,8 @@ import os
 quiz = pd.read_csv("Micro Unit 1.4 CW Comparative Advantage and Trade (Vocab Matching) - Question Details.csv") # path of the csv file
 quiz.drop(["Section #", "Q Title", "Bonus?", "Difficulty", "Average Score", "# Responses", "Out Of ", "Standard Deviation ", "Discrimination Index ", "Point Biserial"], axis = 1, inplace = True)
 
-# directory_name = chromeselect()[0]
-# service = Service(executable_path=directory_name)
+directory_name = chromeselect()[0]
+service = Service(executable_path=directory_name)
 
 answerChoices = []
 qNumbers = []
@@ -44,7 +44,7 @@ for y in range(0, onlyTheFirst, 1):
 print("_______")
 print(answerChoices)
 
-'''
+
 def CheckForMacDown():
     if (chromeselect()[1] == True):
         actions.key_down(Keys.COMMAND)
@@ -71,6 +71,38 @@ def MakeNewQuestion():
     actions.perform()
 driver = webdriver.Chrome(service=service)
 
+def Tab():
+    actions.send_keys(Keys.TAB)
+    actions.perform()
+    time.sleep(0.1)
+
+def ShiftTab():
+    actions.key_down(Keys.LEFT_SHIFT)
+    actions.perform()
+    actions.send_keys(Keys.TAB)
+    actions.perform()
+    time.sleep(0.05)
+    actions.key_up(Keys.LEFT_SHIFT)
+    actions.perform()
+
+def TwoNTabs(n):
+    timesToTab = 0
+    timesToTab = 2 * n
+    for x in range(0, timesToTab, 1):
+        Tab()
+
+def TwoNPlus1Tabs(n):
+    timesToTab = 0
+    timesToTab = 2 * n + 1
+    for y in range(0, timesToTab, 1):
+        Tab()
+
+def TwoNMinus1Tabs(n):
+    timesToTab = 0
+    timesToTab = 2 * n - 1
+    for z in range(0, timesToTab, 1):
+        ShiftTab()
+
 actions = ActionChains(driver)
 driver.get("https://docs.google.com/forms/u/0/") # goes into the form homepage to create new forms
 time.sleep(30)
@@ -81,41 +113,53 @@ link.click()
 time.sleep(5)
 element = driver.find_element(By.CLASS_NAME, "Hvn9fb.zHQkBf")
 element.click()
-element.send_keys("Multi Select Form")
-time.sleep(0.2)
+element.send_keys("Matching Form")
+time.sleep(0.3)
 
-for lp2 in range(0, 22, 1): # Tab to Question 1 Field
-    actions.send_keys(Keys.TAB)
-    time.sleep(0.3)
 
-lower = 0
-upper = answersPerQuestion[0]
+for lp2 in range(0, 22, 1): # Tab to Question Tab
+    Tab()
+    time.sleep(0.05)
 
-for lp in range(0, len(answersPerQuestion), 1):
-    CheckForMacDown()
+actions.send_keys("Match each term with the correct statement below")
+actions.perform()
+Tab()
+time.sleep(0.05)
+Tab()
+time.sleep(0.05)
+Tab()
+time.sleep(0.05)
+Tab()
+time.sleep(0.05)
+
+for lp in range(1, len(uniqueQuestions) + 1, 1): # tab in 2n times for n < 3 and 2n + 1 times for n > 3
+    actions.send_keys(uniqueQuestions[lp - 1])
     actions.perform()
-    actions.send_keys("A")
-    actions.perform()
-    CheckForMacUp()
-    actions.send_keys(uniqueQuestions[lp]) # Enter Questions in Question Field
-    actions.perform()
-    time.sleep(0.2)
-
-    for tab in range(0, 4, 1):
-        actions.send_keys(Keys.TAB) # Tab to Answer Choice 1
-        time.sleep(0.1)
-
-    for a in range(lower, upper, 1):
-        actions.send_keys(answerChoices[a]) # Enter Answer Choice
+    if (lp < 3):
+        TwoNTabs(lp)
+        actions.send_keys(Keys.SPACE)
         actions.perform()
-        time.sleep(0.1)
-        actions.send_keys(Keys.ENTER) # Add Another Answer Choice
+        time.sleep(0.05)
+        actions.send_keys(answerChoices[lp - 1])
         actions.perform()
-        time.sleep(0.2)
-    lower += a + 1
-    upper += a + 1
-    MakeNewQuestion()
+        TwoNMinus1Tabs(lp)
+    elif (lp >= 3):
+        TwoNPlus1Tabs(lp)
+        actions.send_keys(Keys.SPACE)
+        actions.perform()
+        time.sleep(0.05)
+        actions.send_keys(answerChoices[lp - 1])
+        actions.perform()
+        TwoNMinus1Tabs(lp)
 
-'''
+TwoNPlus1Tabs(len(uniqueQuestions + 1))
 
+for lp in range(len(uniqueQuestions, len(answerChoices) + 1, 1)):
+    Tab()
+    Tab()
+    actions.send_keys(Keys.SPACE)
+    actions.perform()
+    time.sleep(0.05)
+    actions.send_keys(answerChoices[lp - 1])
+    actions.perform()
 
