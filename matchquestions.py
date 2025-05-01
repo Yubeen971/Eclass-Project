@@ -11,7 +11,7 @@ import time
 import random
 import os
 
-quiz = pd.read_csv("Micro Unit 1.4 CW Comparative Advantage and Trade (Vocab Matching) - Question Details.csv") # path of the csv file
+quiz = pd.read_csv("PATH") # replace PATH with the location of the csv file you want to use
 quiz.drop(["Section #", "Q Title", "Bonus?", "Difficulty", "Average Score", "# Responses", "Out Of ", "Standard Deviation ", "Discrimination Index ", "Point Biserial"], axis = 1, inplace = True)
 
 directory_name = chromeselect()[0]
